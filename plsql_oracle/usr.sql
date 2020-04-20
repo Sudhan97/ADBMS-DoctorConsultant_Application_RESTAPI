@@ -1,0 +1,3 @@
+CREATE USER admin_user IDENTIDIED BY Admin$12345;
+
+GRANT CONNECT, RESOURCE, DBA TO admin_user;

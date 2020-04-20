@@ -4,10 +4,12 @@ from http import HTTPStatus
 
 from utils.dbconn import connection
 from predict_model.disease_list import DISEASE_LIST
+from utils.db_helper import get_dictformat, get_listformat
 
 import numpy as np 
 import pandas as pd
 import pickle
+
 
 class PredictResource(Resource):
 
@@ -31,6 +33,10 @@ class PredictResource(Resource):
         predicted_disease = model.predict(data_record)
         predicted_disease = list(predicted_disease)
     
-        if len(predicted_disease) == 0: return {"disease" : None}, HTTPStatus.OK
+        if len(predicted_disease) != 0: 
+            return { "disease": predicted_disease }
 
-        return { "disease": predicted_disease }
+        return {"disease" : "No disease recorded with the given symptoms"}, HTTPStatus.OK
+
+        
+    
